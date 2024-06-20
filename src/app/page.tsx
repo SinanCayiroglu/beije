@@ -11,7 +11,7 @@ export default function Home() {
     width: 0,
   });
 
-  const handleButtonClick = (index) => {
+  const handleButtonClick = (index:any) => {
     const buttons = document.querySelectorAll(".button-item");
     const button = buttons[index - 1];
 

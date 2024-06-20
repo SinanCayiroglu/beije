@@ -1,10 +1,17 @@
 "use client";
 import { useState } from "react";
 
-function Slider({ title, min, max, step }) {
+type  SliderProps = {
+    title: string; // Title of the slider
+    min: number; // Minimum value of the slider
+    max: number; // Maximum value of the slider
+    step: number; // Step value for the slider
+    onChange?: (value: number) => void; // Optional onChange event handler
+  }
+function Slider({ title, min, max, step }: SliderProps) {
   const [value, setValue] = useState(min);
 
-  const handleSliderChange = (event) => {
+  const handleSliderChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
   };
 
