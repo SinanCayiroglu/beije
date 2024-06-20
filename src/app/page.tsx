@@ -15,7 +15,7 @@ export default function Home() {
     const buttons = document.querySelectorAll(".button-item");
     const button = buttons[index - 1];
 
-    if (button) {
+    if (button && button.parentElement) {
       const parentRect = button.parentElement.getBoundingClientRect();
       const buttonRect = button.getBoundingClientRect();
       setUnderlinePosition({
