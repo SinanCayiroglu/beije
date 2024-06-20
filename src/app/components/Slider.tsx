@@ -12,7 +12,7 @@ function Slider({ title, min, max, step }: SliderProps) {
   const [value, setValue] = useState(min);
 
   const handleSliderChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(event.target.value);
+    setValue(Number(event.target.value));
   };
 
   return (
