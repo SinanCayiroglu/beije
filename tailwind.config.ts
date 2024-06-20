@@ -15,8 +15,8 @@ const config: Config = {
       },
       keyframes: {
         ripple: {
-            '0%': {width: '0px', height: '0px', opacity: 0.5},
-            '100%': {width: '500px', height: '500px', opacity: 0}
+            '0%': {width: '0px', height: '0px'},
+            '100%': {width: '500px', height: '500px'}
         }
     },
     animation: {
