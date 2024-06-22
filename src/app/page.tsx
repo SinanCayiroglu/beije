@@ -29,7 +29,7 @@ export default function Home() {
   useEffect(() => {
     const buttons = document.querySelectorAll(".button-item");
     buttons.forEach((btn) => {
-      btn.addEventListener("click", function (e: MouseEvent) {
+      btn.addEventListener("click", function (this: HTMLElement,e: MouseEvent) {
         const x = e.clientX - this.offsetLeft;
         const y = e.clientY - this.offsetTop;
         const ripples = document.createElement("span");
