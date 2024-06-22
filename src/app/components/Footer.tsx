@@ -33,7 +33,7 @@ const Footer = () => {
       style={{ backgroundColor: "rgb(38, 38, 38)" }}
       className="py-[80px] px-[144px]"
     >
-      <div className="flex">
+      <div className="flex flex-col md:flex-row">
         <div className="flex flex-col">
           <Link href="/">
             <MyIcon />
@@ -125,74 +125,73 @@ const Footer = () => {
             </Link>
           </div>
         </div>
-        <div className="flex flex-col gap-5 ml-5">
+        <div className="flex flex-row md:flex-col gap-5 mt-10 md:mt-0 md:ml-16">
           <Link href="https://www.facebook.com/beijewomen/">
-            <FacebookOutlinedIcon className="text-white text-opacity-60" />
-            <span className="text-white ml-2">Facebook</span>
+            <div className="flex items-center">
+              <FacebookOutlinedIcon className="text-white text-opacity-60" />
+              <span className="text-white ml-2 hidden md:inline">Facebook</span>
+            </div>
           </Link>
-
           <Link href="https://www.instagram.com/beijewomen/">
-            <InstagramIcon className="text-white text-opacity-60" />
-            <span className="text-white ml-2">İnstagram</span>
+            <div className="flex items-center">
+              <InstagramIcon className="text-white text-opacity-60" />
+              <span className="text-white ml-2 hidden md:inline">İnstagram</span>
+            </div>
           </Link>
           <Link href="https://twitter.com/beijewomen">
-            <TwitterIcon className="text-white text-opacity-60" />
-            <span className="text-white ml-2">Twitter</span>
+            <div className="flex items-center">
+              <TwitterIcon className="text-white text-opacity-60" />
+              <span className="text-white ml-2 hidden md:inline">Twitter</span>
+            </div>
           </Link>
           <Link href="https://tr.linkedin.com/company/beije-tr">
-            <LinkedInIcon className="text-white text-opacity-60" />
-            <span className="text-white ml-2">Linkedin</span>
+            <div className="flex items-center">
+              <LinkedInIcon className="text-white text-opacity-60" />
+              <span className="text-white ml-2 hidden md:inline">Linkedin</span>
+            </div>
           </Link>
           <Link href="https://open.spotify.com/user/ma20bga4ewhwt96kx1p92f2uv">
-            <span className="text-white ml-2">Spotify</span>
+            <div className="flex items-center">
+              <span className="text-white ml-2 hidden md:inline">Spotify</span>
+            </div>
           </Link>
         </div>
       </div>
-      <div>
-        <hr />
-        <div className="flex mt-10">
-          <div>
+       <div className="mt-10">
+        <hr className="" />
+        <div className="flex flex-col md:flex-row justify-between items-center mt-10">
+          <div className="text-center md:text-left">
             <span className="text-white text-opacity-60 text-sm">
               2024 beije. Tüm hakları saklıdır.
             </span>
           </div>
-          <div className="flex gap-5 text-sm">
+          <div className="flex flex-col md:flex-row gap-5 text-sm mt-5 md:mt-0">
             <Link href="/know-us/kvkk">
-              <span className="text-white text-opacity-60 ml-20">KVKK</span>
+              <span className="text-white text-opacity-60">KVKK</span>
             </Link>
             <Link href="/front/forms/KVKK.Başvuru.Formu.pdf">
-              <span className="text-white text-opacity-60 ">
-                KVKK Başvuru Formu
-              </span>
+              <span className="text-white text-opacity-60">KVKK Başvuru Formu</span>
             </Link>
             <Link href="/know-us/membership-agreement">
-              <span className="text-white text-opacity-60 ">
-                Üyelik Sözleşmesi
-              </span>
+              <span className="text-white text-opacity-60">Üyelik Sözleşmesi</span>
             </Link>
             <Link href="/know-us/privacy">
-              <span className="text-white text-opacity-60 ">
-                Gizlilik Politikası
-              </span>
+              <span className="text-white text-opacity-60">Gizlilik Politikası</span>
             </Link>
             <Link href="/know-us/cookies">
-              <span className="text-white text-opacity-60 ">
-                Çerez Politikası
-              </span>
+              <span className="text-white text-opacity-60">Çerez Politikası</span>
             </Link>
             <Link href="/know-us/test-results">
-              <span className="text-white text-opacity-60 ">
-                Test Sonuçları
-              </span>
+              <span className="text-white text-opacity-60">Test Sonuçları</span>
             </Link>
           </div>
-          <div className="flex ml-10">
+          <div className="flex mt-5 md:mt-0">
             <Link href="/en/custom-packet">
-              <span className="text-white text-opacity-60 text-sm">EN </span>
+              <span className="text-white text-opacity-60 text-sm">EN</span>
             </Link>
-            <span className="text-white text-opacity-60"> | </span>
+            <span className="text-white text-opacity-60 mx-2">|</span>
             <Link href="/custom-packet">
-              <span className="text-white text-opacity-60 text-sm"> TR</span>
+              <span className="text-white text-opacity-60 text-sm">TR</span>
             </Link>
           </div>
         </div>
@@ -202,25 +201,25 @@ const Footer = () => {
             width={48}
             height={24}
             alt="troy"
-          ></Image>
+          />
           <Image
             src="/card-mastercard.2bedc059.svg"
             width={48}
             height={24}
-            alt="troy"
-          ></Image>
+            alt="mastercard"
+          />
           <Image
             src="/card-visa.9f651691.svg"
             width={48}
             height={24}
-            alt="troy"
-          ></Image>
+            alt="visa"
+          />
           <Image
             src="/card-american-express.af29b018.svg"
             width={48}
             height={24}
-            alt="troy"
-          ></Image>
+            alt="american-express"
+          />
         </div>
       </div>
     </div>

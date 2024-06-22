@@ -4,8 +4,11 @@ import { useState, useEffect } from "react";
 import Slider from "./components/Slider";
 import AutorenewIcon from "@mui/icons-material/Autorenew";
 import Image from "next/image";
+import { useDispatch } from "react-redux";
+import { addToCart } from "./redux/cartSlice";
 
 export default function Home() {
+  const dispatch = useDispatch()
   const [underlinePosition, setUnderlinePosition] = useState({
     left: 0,
     width: 0,
@@ -147,40 +150,47 @@ export default function Home() {
         return updatedValues;
       });
     };
-  const handleAddToCart = () => {
-    // Logic to add selected products to the cart
-    console.log("Added to cart:", selectedProducts);
+
+
+  const handleRemoveFromPackage = () => {
+    const updatedValues:any = {};
+    Object.keys(sliderValues).forEach((key) => {
+      updatedValues[key] = 0;
+    });
+    setSliderValues(updatedValues);
+    setSelectedProducts([]);
+    setTotalCost(0);
+    setIsButtonEnabled(false);
   };
 
-
   return (
-    <div className="mt-20 px-24 max-w-[1152px] mx-auto">
-      <div className="flex justify-between">
-        <div className="flex flex-col">
-          <div>
+    <div className="mt-20 px-6 md:px-24 max-w-[1152px] mx-auto">
+      <div className="flex flex-col lg:flex-row justify-between">
+        <div className="flex flex-col lg:w-1/2">
+          <div className="flex flex-col lg:flex-row lg:items-center">
             <span className="font-bold text-2xl">Kendi Paketini Oluştur</span>
             <Link href="/knowus/howitworks">
-              <span className="ml-20">Nasıl Çalışır?</span>
+              <span className="ml-0 lg:ml-20 mt-2 lg:mt-0">Nasıl Çalışır?</span>
             </Link>
           </div>
           <span className="mt-10">
             Tercih ve ihtiyaçların doğrultusunda seçeceğin ürünlerden ve miktarlardan, sana özel bir paket oluşturalım.
           </span>
-          <div className="gap-10 relative">
+          <div className="gap-10 relative mt-10">
             <button
-              className="button-item p-5 overflow-hidden relative group focus:ring-opacity-50 transition-all duration-300"
+              className="button-item p-5 overflow-hidden relative group focus:ring-opacity-50 transition-all duration-300 mb-4"
               onClick={() => handleButtonClick(1)}
             >
               beije Ped
             </button>
             <button
-              className="button-item p-5 relative group overflow-hidden focus:ring-opacity-50 transition-all duration-300"
+              className="button-item p-5 relative group overflow-hidden focus:ring-opacity-50 transition-all duration-300 mb-4"
               onClick={() => handleButtonClick(2)}
             >
               beije Günlük Ped
             </button>
             <button
-              className="button-item p-5 overflow-hidden relative group transition-all duration-300"
+              className="button-item p-5 overflow-hidden relative group transition-all duration-300 mb-4"
               onClick={() => handleButtonClick(3)}
             >
               beije Tampon
@@ -195,56 +205,60 @@ export default function Home() {
           </div>
           <div className="mt-10">
             {visibleSliders.includes("standard") && (
-               <>
-               <Slider title="Standart Ped" min={0} max={60} step={10} value={sliderValues.standard} onChange={(value) => handleSliderChange("standard", value)} />
-               <Slider title="Süper Ped" min={0} max={60} step={10} value={sliderValues.super} onChange={(value) => handleSliderChange("super", value)} />
-               <Slider title="Süper+ Ped" min={0} max={60} step={10} value={sliderValues.superPlus} onChange={(value) => handleSliderChange("superPlus", value)} />
-             </>
-           )}
-           {visibleSliders.includes("daily") && (
-             <>
-               <Slider title="Günlük Ped" min={0} max={100} step={10} value={sliderValues.daily} onChange={(value) => handleSliderChange("daily", value)} />
-               <Slider title="Süper Günlük Ped" min={0} max={100} step={10} value={sliderValues.superDaily} onChange={(value) => handleSliderChange("superDaily", value)} />
-             </>
-           )}
-           {visibleSliders.includes("tamponMini") && (
-             <>
-               <Slider title="Mini Tampon" min={0} max={60} step={10} value={sliderValues.tamponMini} onChange={(value) => handleSliderChange("tamponMini", value)} />
-               <Slider title="Standart Tampon" min={0} max={60} step={10} value={sliderValues.tamponStandard} onChange={(value) => handleSliderChange("tamponStandard", value)} />
-               <Slider title="Süper Tampon" min={0} max={60} step={10} value={sliderValues.tamponSuper} onChange={(value) => handleSliderChange("tamponSuper", value)} />
-             </>
-           )}
+              <>
+                <Slider title="Standart Ped" min={0} max={60} step={10} value={sliderValues.standard} onChange={(value) => handleSliderChange("standard", value)} />
+                <Slider title="Süper Ped" min={0} max={60} step={10} value={sliderValues.super} onChange={(value) => handleSliderChange("super", value)} />
+                <Slider title="Süper+ Ped" min={0} max={60} step={10} value={sliderValues.superPlus} onChange={(value) => handleSliderChange("superPlus", value)} />
+              </>
+            )}
+            {visibleSliders.includes("daily") && (
+              <>
+                <Slider title="Günlük Ped" min={0} max={100} step={10} value={sliderValues.daily} onChange={(value) => handleSliderChange("daily", value)} />
+                <Slider title="Süper Günlük Ped" min={0} max={100} step={10} value={sliderValues.superDaily} onChange={(value) => handleSliderChange("superDaily", value)} />
+              </>
+            )}
+            {visibleSliders.includes("tamponMini") && (
+              <>
+                <Slider title="Mini Tampon" min={0} max={60} step={10} value={sliderValues.tamponMini} onChange={(value) => handleSliderChange("tamponMini", value)} />
+                <Slider title="Standart Tampon" min={0} max={60} step={10} value={sliderValues.tamponStandard} onChange={(value) => handleSliderChange("tamponStandard", value)} />
+                <Slider title="Süper Tampon" min={0} max={60} step={10} value={sliderValues.tamponSuper} onChange={(value) => handleSliderChange("tamponSuper", value)} />
+              </>
+            )}
           </div>
         </div>
-        <div className="flex flex-col rounded bg-white p-10">
+        <div className="flex flex-col rounded bg-white p-6 md:p-10 lg:w-1/2 mt-10 lg:mt-0">
           <span className="font-bold text-2xl">Özel Paketin</span>
-          <span className="custom-shadow my-10 rounded">
-            <AutorenewIcon />2 ayda 1 gönderim
+          <span className="custom-shadow my-10 rounded p-2 flex items-center">
+            <AutorenewIcon /> <span className="ml-2">2 ayda 1 gönderim</span>
           </span>
           <Image src="/packet.webp" width={402} height={180} alt="özel paket" />
           <div className="mt-4">
             {selectedProducts.map((product, index) => (
-              <div key={index} className="flex justify-between">
+              <div key={index} className="flex justify-between items-center mb-4">
                 <span>{product}</span>
+                <button
+                  className=""
+                  onClick={() => handleRemoveFromPackage(index)}
+                >
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="24" height="24">
+                    <path d="M16 6v-.8c0-1.12 0-1.68-.218-2.108a2 2 0 0 0-.874-.874C14.48 2 13.92 2 12.8 2h-1.6c-1.12 0-1.68 0-2.108.218a2 2 0 0 0-.874.874C8 3.52 8 4.08 8 5.2V6m2 5.5v5m4-5v5M3 6h18m-2 0v11.2c0 1.68 0 2.52-.327 3.162a3 3 0 0 1-1.311 1.311C16.72 22 15.88 22 14.2 22H9.8c-1.68 0-2.52 0-3.162-.327a3 3 0 0 1-1.311-1.311C5 19.72 5 18.88 5 17.2V6" stroke="#343131" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
+                  </svg>
+                </button>
               </div>
             ))}
           </div>
-          <div className="flex justify-between mt-4">
-            <span>Toplam Tutar:</span>
-            <span>{totalCost.toFixed(2)} ₺</span>
-          </div>
           <button
-            className={`w-full py-3 bg-blue-500 text-white text-lg font-semibold rounded-md mt-4 ${
+            className={`w-full py-3 bg-gray-800 text-white text-lg font-semibold rounded-full mt-4 ${
               isButtonEnabled ? "" : "opacity-50 cursor-not-allowed"
             }`}
             type="button"
-            onClick={handleAddToCart}
-            disabled={!isButtonEnabled} // Button is disabled when isButtonEnabled is false
+            onClick={()=>dispatch(addToCart(selectedProducts))}
+            disabled={!isButtonEnabled}
           >
-            Sepete Ekle
+            Sepete Ekle {totalCost.toFixed(2)} ₺
           </button>
         </div>
       </div>
     </div>
   );
-}
+};
