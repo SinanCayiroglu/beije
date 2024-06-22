@@ -1,18 +1,19 @@
 "use client";
 import { useState } from "react";
 
-type  SliderProps = {
-    title: string; // Title of the slider
-    min: number; // Minimum value of the slider
-    max: number; // Maximum value of the slider
-    step: number; // Step value for the slider
-    onChange?: (value: number) => void; // Optional onChange event handler
-  }
-function Slider({ title, min, max, step }: SliderProps) {
-  const [value, setValue] = useState(min);
+type SliderProps = {
+  title: string; // Title of the slider
+  min: number; // Minimum value of the slider
+  max: number; // Maximum value of the slider
+  step: number; // Step value for the slider
+  value: number; // Current value of the slider
+  onChange: (value: number) => void; // onChange event handler
+};
 
+const Slider = ({ title, min, max, step, value, onChange }: SliderProps) => {
   const handleSliderChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(Number(event.target.value));
+    const newValue = Number(event.target.value);
+    onChange(newValue);
   };
 
   return (
@@ -27,12 +28,14 @@ function Slider({ title, min, max, step }: SliderProps) {
           style={{ width: `${((value - min) / (max - min)) * 100}%` }}
         ></div>
         {/* Slider Marks */}
-        <div className="relative z-10 flex justify-between w-full">
-          {Array.from({ length: (max / step) + 1 }).map((_, index) => (
+        <div className="relative  flex justify-between w-full">
+          {Array.from({ length: (max - min) / step + 1 }).map((_, index) => (
             <span
               key={index}
-              className={`w-1 h-1 ${index * step <= value ? 'bg-black' : 'bg-gray-500'} rounded-full`}
-              style={{ left: `${(index / (max / step)) * 100}%` }}
+              className={`w-1 h-1 ${
+                index * step <= value ? "bg-black" : "bg-gray-500"
+              } rounded-full`}
+              style={{ left: `${(index / ((max - min) / step)) * 100}%` }}
             ></span>
           ))}
         </div>
@@ -45,14 +48,14 @@ function Slider({ title, min, max, step }: SliderProps) {
           value={value}
           onChange={handleSliderChange}
           className="w-full absolute appearance-none bg-transparent top-1/2 transform -translate-y-1/2"
-          style={{ height: '1rem' }}
+          style={{ height: "1rem" }}
         />
         {/* Circular Thumb with Value */}
         <div
           className="absolute top-1/2 transform -translate-y-1/2 bg-black rounded-full flex items-center justify-center text-white"
           style={{
-            width: '1.5rem',
-            height: '1.5rem',
+            width: "1.5rem",
+            height: "1.5rem",
             left: `calc(${((value - min) / (max - min)) * 100}% - 0.75rem)`,
           }}
         >
@@ -65,6 +68,6 @@ function Slider({ title, min, max, step }: SliderProps) {
       </div>
     </div>
   );
-}
+};
 
 export default Slider;
