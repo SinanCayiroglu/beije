@@ -29,7 +29,7 @@ export default function Home() {
   useEffect(() => {
     const buttons = document.querySelectorAll(".button-item");
     buttons.forEach((btn) => {
-      btn.addEventListener("click", function (e) {
+      btn.addEventListener("click", function (e: MouseEvent) {
         const x = e.clientX - this.offsetLeft;
         const y = e.clientY - this.offsetTop;
         const ripples = document.createElement("span");
@@ -61,7 +61,7 @@ export default function Home() {
     };
   }, []);
 
-  const handleButtonClick = (index) => {
+  const handleButtonClick = (index:any) => {
     const buttons = document.querySelectorAll(".button-item");
     const button = buttons[index - 1];
 
@@ -93,7 +93,7 @@ export default function Home() {
         const updatedValues = { ...prevValues, [name]: value };
   
         // Update selected products based on the slider change
-        const updatedProducts = [];
+        const updatedProducts:any = [];
         let totalCost = 0;
         Object.entries(updatedValues).forEach(([key, val]) => {
           if (val > 0) {
