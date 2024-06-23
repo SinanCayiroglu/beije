@@ -4,7 +4,7 @@ import PulsatingDot from "./Pulsatingdot";
 import KeyboardArrowRightOutlinedIcon from "@mui/icons-material/KeyboardArrowRightOutlined";
 import Image from "next/image";
 
-type MenuItem = {
+type MenuItemLink = {
   href: string;
   src: string;
   alt: string;
@@ -16,32 +16,64 @@ type MenuItemsProps = {
   handleMouseLeave: () => void;
   isOpen: boolean;
   title: string;
-  links: MenuItem[];
+  links: MenuItemLink[];
+  paketler?: MenuItemLink[];
+  customPacket?: MenuItemLink;
 };
 
-const MenuItems: React.FC<MenuItemsProps> = ({ handleHover, handleMouseLeave, isOpen, title, links }) => (
-  <div className="cursor-pointer" onMouseEnter={handleHover} onMouseLeave={handleMouseLeave}>
+const MenuItems: React.FC<MenuItemsProps> = ({
+  handleHover,
+  handleMouseLeave,
+  isOpen,
+  title,
+  links,
+  paketler,
+  customPacket,
+}) => (
+  <div className="cursor-pointer" onClick={handleHover} onMouseLeave={handleMouseLeave}>
     <span className="relative">
       {title}
       <PulsatingDot />
     </span>
     {isOpen && (
-      <div className="absolute pt-10 left-0 w-screen bg-gray-100 shadow-lg rounded-md transition-all duration-300 ease-in-out transform opacity-100 translate-y-0">
-        <div className="mx-auto">
-          <span className="font-bold">{title}</span>
-          <div className="flex gap-[24px] mt-5">
-            {links.map((link) => (
-              <Link key={link.href} href={link.href} className="flex flex-col">
-                <Image src={link.src} width={164} height={82} alt={link.alt} />
-                <div className="flex">
-                  <span>{link.text}</span>
-                  <div className="ml-auto">
-                    <KeyboardArrowRightOutlinedIcon />
-                  </div>
+      <div className={`fixed top-0 left-0 w-screen h-screen bg-white z-50 flex justify-center items-center`}>
+        <div className="w-full  max-w-screen-lg p-8 bg-gray-100 shadow-lg rounded-md">
+  
+          <div className="flex flex-col gap-8 mt-5">
+            {links.map((link, index) => (
+              <Link key={index} href={link.href} className="flex flex-col w-52">
+                <div className="flex items-center justify-between mt-2">
+                  <span className="truncate">{link.text}</span>
+                  <KeyboardArrowRightOutlinedIcon />
                 </div>
               </Link>
             ))}
           </div>
+          {paketler && (
+            <div className="mt-10">
+              <span className="font-bold">Paketler</span>
+              <div className="flex flex-wrap gap-8 mt-5">
+                {paketler.map((paket, index) => (
+                  <Link key={index} href={paket.href} className="flex flex-col w-52">
+                    <div className="flex items-center justify-between mt-2">
+                      <span className="truncate">{paket.text}</span>
+                      <KeyboardArrowRightOutlinedIcon />
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
+          {customPacket && (
+            <div className="mt-10">
+              <Link href={customPacket.href} className="flex flex-col w-52">
+                <div className="flex items-center justify-between mt-2">
+                  <span className="truncate">{customPacket.text}</span>
+                  <KeyboardArrowRightOutlinedIcon />
+                </div>
+              </Link>
+            </div>
+          )}
         </div>
       </div>
     )}

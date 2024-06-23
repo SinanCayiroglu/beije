@@ -8,11 +8,8 @@ import PulsatingDot from "./Pulsatingdot";
 import Image from "next/image";
 import KeyboardArrowRightOutlinedIcon from "@mui/icons-material/KeyboardArrowRightOutlined";
 import ArrowForwardOutlinedIcon from "@mui/icons-material/ArrowForwardOutlined";
-import MenuIcon from "@mui/icons-material/Menu";
-import CloseIcon from "@mui/icons-material/Close";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/storage";
-import MenuItems from "./MenuItems";
 import MobileMenu from "./MobileMenu";
 
 // Define TypeScript types
@@ -199,16 +196,18 @@ const Navbar: React.FC<NavbarProps> = () => {
               </div>
               {menuItem.title === "Ürünler" && (
              
-                  <div className="flex mt-10">
-                  <Link href={menuItem.customPacket.href} className="">
-                    <Image src={menuItem.customPacket.src} width={164} height={314} alt={menuItem.customPacket.alt} />
-                    <div className="link-text flex">
-                      <span>{menuItem.customPacket.text}</span>
-                      <div className="ml-auto">
-                            <KeyboardArrowRightOutlinedIcon />
-                          </div>
-                    </div>
-                  </Link>
+             <div className="flex mt-10">
+             {menuItem.customPacket && (
+               <Link href={menuItem.customPacket.href}>
+                 <Image src={menuItem.customPacket.src} width={164} height={314} alt={menuItem.customPacket.alt} />
+                 <div className="link-text flex">
+                   <span>{menuItem.customPacket.text}</span>
+                   <div className="ml-auto">
+                     <KeyboardArrowRightOutlinedIcon />
+                   </div>
+                 </div>
+               </Link>
+             )}
                 </div>)}
             </div>
           )}
