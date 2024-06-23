@@ -1,5 +1,4 @@
 "use client";
-import { useState } from "react";
 
 type SliderProps = {
   title: string; // Title of the slider
@@ -27,18 +26,6 @@ const Slider = ({ title, min, max, step, value, onChange }: SliderProps) => {
           className="h-1 bg-black absolute top-1/2 transform -translate-y-1/2 rounded-full"
           style={{ width: `${((value - min) / (max - min)) * 100}%` }}
         ></div>
-        {/* Slider Marks */}
-        <div className="relative  flex justify-between w-full">
-          {Array.from({ length: (max - min) / step + 1 }).map((_, index) => (
-            <span
-              key={index}
-              className={`w-1 h-1 ${
-                index * step <= value ? "bg-black" : "bg-gray-500"
-              } rounded-full`}
-              style={{ left: `${(index / ((max - min) / step)) * 100}%` }}
-            ></span>
-          ))}
-        </div>
         {/* Input Range */}
         <input
           type="range"
@@ -48,18 +35,29 @@ const Slider = ({ title, min, max, step, value, onChange }: SliderProps) => {
           value={value}
           onChange={handleSliderChange}
           className="w-full absolute appearance-none bg-transparent top-1/2 transform -translate-y-1/2"
-          style={{ height: "1rem" }}
+          style={{
+            height: "1rem",
+            WebkitAppearance: "none", /* Hides the default slider thumb in Webkit browsers */
+            MozAppearance: "none", /* Hides the default slider thumb in Firefox */
+            appearance: "none", /* Hides the default slider thumb in other browsers */
+          }}
         />
-        {/* Circular Thumb with Value */}
+        {/* Custom Thumb */}
         <div
           className="absolute top-1/2 transform -translate-y-1/2 bg-black rounded-full flex items-center justify-center text-white"
           style={{
             width: "1.5rem",
             height: "1.5rem",
             left: `calc(${((value - min) / (max - min)) * 100}% - 0.75rem)`,
+            pointerEvents: "none",
           }}
         >
-          <span className="text-xs absolute">{value}</span>
+          <span
+            className="text-xs absolute bg-gray-700 rounded px-1 py-0.5 top-[-1.75rem] flex items-center justify-center"
+            style={{ pointerEvents: "none" }}
+          >
+            {value}
+          </span>
         </div>
       </div>
       <div className="flex justify-between w-full max-w-md mt-2">
@@ -71,3 +69,22 @@ const Slider = ({ title, min, max, step, value, onChange }: SliderProps) => {
 };
 
 export default Slider;
+
+<style jsx global>{`
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 0; /* Hide the thumb */
+    height: 0; /* Hide the thumb */
+  }
+
+  input[type="range"]::-moz-range-thumb {
+    width: 0; /* Hide the thumb */
+    height: 0; /* Hide the thumb */
+  }
+
+  input[type="range"]::-ms-thumb {
+    width: 0; /* Hide the thumb */
+    height: 0; /* Hide the thumb */
+  }
+`}</style>

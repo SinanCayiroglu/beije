@@ -142,7 +142,7 @@ export default function Home() {
         });
         setSelectedProducts(updatedProducts);
         setTotalCost(totalCost);
-  
+        console.log(selectedProducts);
         // Enable the "Sepete Ekle" button if any slider value is greater than 0
         const isAnySliderActive = Object.values(updatedValues).some((val) => val > 0);
         setIsButtonEnabled(isAnySliderActive);
