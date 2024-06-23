@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import BeijeLogo from "./logo";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import PermIdentityOutlinedIcon from "@mui/icons-material/PermIdentityOutlined";
-import PulsatingDot from "./Pulsatindot";
+import PulsatingDot from "./Pulsatingdot";
 import Image from "next/image";
 import KeyboardArrowRightOutlinedIcon from "@mui/icons-material/KeyboardArrowRightOutlined";
 import ArrowForwardOutlinedIcon from "@mui/icons-material/ArrowForwardOutlined";
@@ -15,7 +15,34 @@ import { RootState } from "../redux/storage";
 import MenuItems from "./MenuItems";
 import MobileMenu from "./MobileMenu";
 
-const Navbar = () => {
+// Define TypeScript types
+type MenuItem = {
+  title: string;
+  isOpen: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  links: {
+    href: string;
+    src: string;
+    alt: string;
+    text: string;
+    extra?: JSX.Element;
+  }[];
+  paketler?: {
+    href: string;
+    src: string;
+    alt: string;
+    text: string;
+  }[];
+  customPacket?: {
+    href: string;
+    src: string;
+    alt: string;
+    text: string;
+  };
+};
+
+type NavbarProps = {};
+const Navbar: React.FC<NavbarProps> = () => {
   const cartItems = useSelector((state: RootState) => state.cart.cart)
 
   const [ürünlerOpen, setÜrünlerOpen] = useState(false);
@@ -23,7 +50,7 @@ const Navbar = () => {
   const [bagisOpen, setBagisOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const handleHover = (setOpen) => {
+  const handleHover = (setOpen: React.Dispatch<React.SetStateAction<boolean>>) => {
     setÜrünlerOpen(false);
     setBizkimizOpen(false);
     setBagisOpen(false);
@@ -40,7 +67,7 @@ const Navbar = () => {
     setMenuOpen(!menuOpen);
   };
 
-  const menuItems = [
+  const menuItems: MenuItem[] = [
     {
       title: "Ürünler",
       isOpen: ürünlerOpen,
@@ -89,6 +116,7 @@ const Navbar = () => {
     },
   ];
   
+
   return (
     <div className="flex items-center justify-center w-full fixed z-10 left-0 top-0 py-[24px] px-[24px] gap-[32px]">
       <div className="w-[172px]">

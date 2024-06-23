@@ -4,15 +4,26 @@ import CloseIcon from "@mui/icons-material/Close";
 import Link from "next/link";
 import MenuItems from "./MenuItems";
 
-type MenuItemProps ={
+// Define types for menu items and props
+type MenuItem = {
+    title: string;
+    isOpen: boolean;
+    setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    links: {
+      href: string;
+      text: string;
+    }[];
+  };
+  
+  type MobileMenuProps = {
     menuOpen: boolean;
     handleMenuToggle: () => void;
-    menuItems: MenuItemProps[];
-    handleHover: (setOpen: boolean) => void;
+    menuItems: MenuItem[];
+    handleHover: (setOpen: React.Dispatch<React.SetStateAction<boolean>>) => void;
     handleMouseLeave: () => void;
-}
-
-const MobileMenu = ({ menuOpen, handleMenuToggle, menuItems, handleHover, handleMouseLeave }:MenuItemProps) => (
+  };
+  
+  const MobileMenu: React.FC<MobileMenuProps> = ({ menuOpen, handleMenuToggle, menuItems, handleHover, handleMouseLeave }:MenuItemProps) => (
   <div className="flex items-center md:hidden">
     <button onClick={handleMenuToggle} className="text-2xl z-30">
       {menuOpen ? <CloseIcon /> : <MenuIcon />}

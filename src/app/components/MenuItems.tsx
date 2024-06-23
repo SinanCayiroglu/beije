@@ -1,10 +1,25 @@
 import React from "react";
 import Link from "next/link";
-import PulsatingDot from "./PulsatinDot";
+import PulsatingDot from "./Pulsatingdot";
 import KeyboardArrowRightOutlinedIcon from "@mui/icons-material/KeyboardArrowRightOutlined";
 import Image from "next/image";
 
-const MenuItems = ({ handleHover, handleMouseLeave, isOpen, title, links }) => (
+type MenuItem = {
+  href: string;
+  src: string;
+  alt: string;
+  text: string;
+};
+
+type MenuItemsProps = {
+  handleHover: () => void;
+  handleMouseLeave: () => void;
+  isOpen: boolean;
+  title: string;
+  links: MenuItem[];
+};
+
+const MenuItems: React.FC<MenuItemsProps> = ({ handleHover, handleMouseLeave, isOpen, title, links }) => (
   <div className="cursor-pointer" onMouseEnter={handleHover} onMouseLeave={handleMouseLeave}>
     <span className="relative">
       {title}
